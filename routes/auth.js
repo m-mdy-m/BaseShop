@@ -21,6 +21,11 @@ router.post(
       .isEmail()
       .normalizeEmail()
       .custom(async (val, { req }) => {findUser(val)}),
+      body('password').isLength({min : 5}).trim(),
+      body('confirmPassword').trim().custom((val , {req})=>{
+        console.log('val =>', val)
+        console.log('req =>', req)
+      })
   ],
   authControl.postSignUp
 );
