@@ -1,7 +1,7 @@
 const render = (req, res, view, title, msgErr = null, validateErrors = [], ...newObj) => {
   let messageError = req.flash("error");
-  if (msgErr.length > 0) {
-    messageError = msgErr[0];
+  if (messageError.length > 0) {
+    messageError = messageError[0];
   } else {
     messageError = null;
   }
