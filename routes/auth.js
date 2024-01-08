@@ -10,7 +10,10 @@ async function findUser(email) {
   }
   return true;
 }
-
+function isMatchPassword(req, confirmPassword) {
+  const password = req.body.password;
+  return password === confirmPassword;
+}
 router.get("/signUp", authControl.getSignUp);
 
 router.post(
@@ -20,20 +23,14 @@ router.post(
     body("email")
       .isEmail()
       .normalizeEmail()
-      .custom(async (val, { req }) => {
+      .custom(async (val) => {
         findUser(val);
       }),
     body("password").isLength({ min: 5 }).trim(),
     body("confirmPassword")
       .trim()
       .custom((val, { req }) => {
-        const password = req.body.password;
-        console.log("=>", password);
-        console.log("=>", val);
-        if (val === password) {
-          return true;
-        }
-        throw new Error("THIS NOT MATCH PASSWORD");
+        isMatchPassword(req, val);
       }),
   ],
   authControl.postSignUp

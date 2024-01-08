@@ -10,4 +10,10 @@ exports.postSignUp =async (req,res,nxt)=>{
   const email = req.body.email
   const password = req.body.password
   const err = validationResult(req)
+  if(!err.isEmpty()){
+    let errors = err.array()
+    console.log('errors=>',errors)
+    return render(req,res,'auth/signUp',"SIGNUP", err.array()[0].msg, errors,)
+  }
+  
 }
