@@ -6,19 +6,19 @@
   <form action="/signUp" method="post" class="forms">
     <div class="wrapperInput">
       <label for="name">name</label>
-      <input type="text" class="input" name="name" />
+      <input type="text" class="input <%= validateErrors === 'name'?'invalid':''; %> " name="name" value="<%- oldValue.name%>"/>
     </div>
     <div class="wrapperInput">
       <label for="email">email</label>
-      <input type="email" class="input" name="email" />
+      <input type="email" class="input <%= validateErrors === 'email'?"invalid":''; %> " name="email" value="<%- oldValue.email%>"/>
     </div>
     <div class="wrapperInput">
       <label for="password">password</label>
-      <input type="password" class="input" name="password" />
+      <input type="password" class="input <%= validateErrors === 'password'?"invalid":''; %> " name="password" value="<%- oldValue.password%>"/>
     </div>
     <div class="wrapperInput">
       <label for="confirmPassword">confirm password</label>
-      <input type="password" class="input" name="confirmPassword" />
+      <input type="password" class="input <%= validateErrors === 'confirmPassword'?"invalid":''; %> " name="confirmPassword" value="<%- oldValue.confirmPassword%>"/>
     </div>
     <div>
       <button type="submit" class="btn">SIGNUP</button>
