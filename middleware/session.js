@@ -6,7 +6,7 @@ const store = new connectMongoSession({
   collection: "session",
 });
 
-exports.session = session({
+module.exports = session({
   secret: "hey hey ",
   resave: false,
   saveUninitialized: false,

@@ -5,8 +5,8 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const flash = require("connect-flash");
 const path = require("path");
-const session = require("./middleware/session");
-const locals = require("./middleware/setLocals");
+const session = require("./middleware/session")
+const locals = require("./middleware/setLocals")
 const multer = require("./middleware/multer");
 app.set("view engin", "ejs");
 app.set("views", "views");
@@ -15,10 +15,10 @@ app.use(multer);
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/public/image",express.static(path.join(__dirname, "public", "images")));
-app.use(flash());
-const csrf = csurf();
-app(csrf());
 app.use(session);
+app.use(flash());
+const csrfProtection = csurf();
+app.use(csrfProtection);
 const URL = "mongodb://localhost:27017/BaseShop";
 app.use(locals);
 
