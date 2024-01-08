@@ -47,21 +47,24 @@
           <% } %>
         </div>
         <div class="nav">
+          <% if(!isAuth){ %>
           <li class="nav__item">
             <a
               href="/signup"
               class="nav__item-link <%= path==='/signup'?'active':'' %>"
-            ></a>
+            >signup</a>
           </li>
           <li class="nav__item">
             <a
               href="/login"
               class="nav__item-link <%= path==='/login'?'active':'' %>"
-            ></a>
+            >login</a>
           </li>
+          <% }else{ %>
           <li class="nav__item">
-            <a href="/logOut" class="nav__item-link"></a>
+            <a href="/logOut" class="nav__item-link">logOut</a>
           </li>
+          <% } %>
         </div>
       </header>
       <main class="main"></main>
