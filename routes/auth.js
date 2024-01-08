@@ -4,11 +4,13 @@ const authControl = require("../controllers/auth");
 const User = require("../models/User");
 
 async function findUser(email) {
-  return (await User.findOne({ email: email }));
+  return await User.findOne({ email: email });
 }
 function isMatchPassword(req, confirmPassword) {
-  const password = req.body.password;
-  return password === confirmPassword;
+  if (confirmPassword !== req.body.password) {
+    throw new Error("NOT MATCH PASSWORD");
+  }
+  return true;
 }
 router.get("/signup", authControl.getSignUp);
 
@@ -24,10 +26,10 @@ router.post(
       }),
     body("password").isLength({ min: 5 }).trim(),
     body("confirmPassword")
-      .trim()
       .custom((val, { req }) => {
         isMatchPassword(req, val);
-      }),
+      })
+      .trim(),
   ],
   authControl.postSignUp
 );
