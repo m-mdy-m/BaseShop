@@ -1,0 +1,25 @@
+{
+  "name": "baseshop",
+  "version": "1.0.0",
+  "description": "There is a project that shows what features in a real store, such as pagination, payment, authentication, and admin panel, each user can perform crud operations on their own products using nodejs express.",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m-mdy-m/BaseShop.git"
+  },
+  "keywords": [
+    "express",
+    "nodejs",
+    "shop",
+    "authorization"
+  ],
+  "author": "mahdi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/m-mdy-m/BaseShop/issues"
+  },
+  "homepage": "https://github.com/m-mdy-m/BaseShop#readme"
+}
