@@ -1,4 +1,29 @@
-<%- include('../includes/base.ejs') %> 
-<%- include('../includes/header.ejs') %>
-<main class="main"></main>
+<%- include('../includes/base.ejs') %> <%- include('../includes/header.ejs') %>
+<main class="main">
+  <% if(msgErr){ %>
+  <div class="Error"><%= msgErr %></div>
+  <% } %>
+  <form action="/signUp" method="post" class="forms">
+    <div class="wrapperInput">
+      <label for="name">name</label>
+      <input type="text" class="input" name="name" />
+    </div>
+    <div class="wrapperInput">
+      <label for="email">email</label>
+      <input type="email" class="input" name="email" />
+    </div>
+    <div class="wrapperInput">
+      <label for="password">password</label>
+      <input type="password" class="input" name="password" />
+    </div>
+    <div class="wrapperInput">
+      <label for="confirmPassword">confirm password</label>
+      <input type="password" class="input" name="confirmPassword" />
+    </div>
+    <div>
+      <button type="submit" class="btn">SIGNUP</button>
+    </div>
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+  </form>
+</main>
 <%- include('../includes/end.ejs') %>
