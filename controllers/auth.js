@@ -45,16 +45,7 @@ exports.postSignUp = async (req, res, nxt) => {
   req.session.save();
   res.redirect("/");
 };
-exports.logOut = (req, res, nxt) => {
-  req.session.destroy((err) => {
-    try {
-      if (err) {
-        console.error(err);
-        return nxt(err);
-      }
-      res.redirect("/signup");
-    } catch (Err) {
-      console.log(Err);
-    }
-  });
+exports.logOut = async (req, res, nxt) => {
+  await req.session.destroy();
+  res.redirect('/signup')
 };
