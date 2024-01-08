@@ -33,4 +33,7 @@ router.post(
   ],
   authControl.postSignUp
 );
+
+
+router.delete('/logout', authControl.logOut)
 module.exports = router;
