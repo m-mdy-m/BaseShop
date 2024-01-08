@@ -46,10 +46,14 @@ exports.postSignUp = async (req, res, nxt) => {
 };
 exports.logOut = (req, res, nxt) => {
   req.session.destroy((err) => {
-    if (err) {
-      console.error(err);
-      return nxt(err);
+    try {
+      if (err) {
+        console.error(err);
+        return nxt(err);
+      }
+      res.redirect("/signup");
+    } catch (Err) {
+      console.log(Err);
     }
-    res.redirect('/signup');
- });
+  });
 };

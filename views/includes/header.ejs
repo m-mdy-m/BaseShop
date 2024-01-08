@@ -52,10 +52,10 @@
           >login</a>
         </li>
         <% }else{ %>
-        <li class="nav__item">
-          <button class="nav__item-link" type="button" >logOut</button>
-          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-        </li>
+          <li class="nav__item">
+            <button class="nav__item-link" type="button" onclick="logout(event)">logOut</button>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          </li>
         <% } %>
       </div>
     </header>

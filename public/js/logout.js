@@ -1,24 +1,22 @@
-const logout = (event) => {
-  const csrf = event.parentNode.querySelector("[name=_csrf]").value;
-  console.log("csrf =>", csrf);
+function logout(e) {
+  e.preventDefault();
+  const csrf = e.target.parentNode.querySelector("[name=_csrf]").value;
   fetch("/logout", {
     method: "DELETE",
     headers: {
-      "csrf-token": csrf,
+      "Content-Type": "application/json",
+      "CSRF-Token": csrf,
     },
-    redirect : "/signup",
+    body: JSON.stringify({ csrf: csrf }),
   })
-    .then((result) => {
-      return result.json();
+    .then((response) => {
+      if (response.ok) {
+        window.location.href = "/"; // Redirect to the home page after successful logout
+      } else {
+        throw new Error("Failed to log out");
+      }
     })
-    .then((data) => {
-      console.log("data =>", data);
+    .catch((error) => {
+      console.error("Error:", error);
     });
-  //   const result = await fetch("/logout", {
-  //     method: "DELETE",
-  //     headers: {
-  //       "csrf-token": csrf,
-  //     },
-  //   });
-  //   await result.json()
-};
+}
