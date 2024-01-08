@@ -8,6 +8,7 @@ const path = require("path");
 const session = require("./middleware/session")
 const locals = require("./middleware/setLocals")
 const multer = require("./middleware/multer");
+const user = require('./middleware/findUser')
 app.set("view engine", "ejs");
 app.set("views", "views");
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -19,7 +20,7 @@ app.use(flash());
 const csrfProtection = csurf();
 app.use(csrfProtection);
 app.use(locals);
-
+app.use(user)
 
 const authRouter = require('./routes/auth')
 
