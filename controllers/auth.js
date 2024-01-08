@@ -21,6 +21,7 @@ exports.postSignUp = async (req, res, nxt) => {
   const err = validationResult(req);
   if (!err.isEmpty()) {
     let errors = err.array();
+    console.log(errors)
     return render(req, res, "auth/signUp", "SIGNUP", err.array(), errors, {
       oldValue: {
         name: name,
