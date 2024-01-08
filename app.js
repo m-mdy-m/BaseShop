@@ -8,7 +8,7 @@ const path = require("path");
 const session = require("./middleware/session")
 const locals = require("./middleware/setLocals")
 const multer = require("./middleware/multer");
-app.set("view engin", "ejs");
+app.set("view engine", "ejs");
 app.set("views", "views");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(multer);
@@ -19,6 +19,11 @@ app.use(flash());
 const csrfProtection = csurf();
 app.use(csrfProtection);
 app.use(locals);
+
+
+const authRouter = require('./routes/auth')
+
+app.use(authRouter)
 const URL = "mongodb://localhost:27017/BaseShop";
 const start = async () => {
   try {
