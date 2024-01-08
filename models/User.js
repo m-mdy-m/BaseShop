@@ -17,6 +17,11 @@ const User = new Schema({
   dateToken: Date,
   cart: [
     {
+      nameProduct: {
+        type: String,
+        ref: "Product",
+        required: true,
+      },
       proId: {
         type: Schema.Types.ObjectId,
         ref: "Product",
