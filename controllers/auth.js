@@ -21,7 +21,6 @@ exports.postSignUp = async (req, res, nxt) => {
   const err = validationResult(req);
   if (!err.isEmpty()) {
     let errors = err.array();
-    console.log("errors=>", errors);
     return render(
       req,
       res,
@@ -29,12 +28,14 @@ exports.postSignUp = async (req, res, nxt) => {
       "SIGNUP",
       err.array()[0].msg,
       errors,
-      {oldValue : {
-        name: name,
-        email: email,
-        password: password,
-        confirmPassword: confirmPassword,
-      }}
+      {
+        oldValue: {
+          name: name,
+          email: email,
+          password: password,
+          confirmPassword: confirmPassword,
+        },
+      }
     );
   }
   const hashedPassword = await bcryptjs.hash(password, 12);
@@ -44,7 +45,9 @@ exports.postSignUp = async (req, res, nxt) => {
     password: hashedPassword,
     cart: [],
   });
+  console.log("user =>", user);
   await user.save();
+  console.log("user created ");
   req.session.isLogin = true;
   req.session.user = user;
   req.session.save();

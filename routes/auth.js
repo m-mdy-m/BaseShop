@@ -4,11 +4,7 @@ const authControl = require("../controllers/auth");
 const User = require("../models/User");
 
 async function findUser(email) {
-  let user = await User.findOne({ email: email });
-  if (!user) {
-    return Promise.reject("HAS EMAIL");
-  }
-  return true;
+  return (await User.findOne({ email: email }));
 }
 function isMatchPassword(req, confirmPassword) {
   const password = req.body.password;

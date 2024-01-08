@@ -1,29 +1,19 @@
-const render = (
-  req,
-  res,
-  view,
-  title,
-  msgErr = null,
-  validateErrors = [],
-  { ...newObj }
-) => {
-  let messageError = req.flash("error");
-  if (messageError.length > 0) {
-    messageError = messageError[0];
+const render = (req, res, view, title, msgErr = null, validateErrors = [], {...newObj}) => {
+  if (msgErr.length > 0) {
+  return msgErr
   } else {
-    messageError = null;
+    msgErr = null;
   }
   var ErrorPath;
-  validateErrors.forEach((e) => {
-    console.log("e =>", e.path);
-    ErrorPath = e.path;
-  });
+  validateErrors.forEach(e =>{
+    ErrorPath = e.path
+  })
   res.render(view, {
     title: title,
     path: req.path,
-    msgErr: messageError,
+    msgErr: msgErr,
     validateErrors: ErrorPath,
-    ...newObj,
+    ...newObj
   });
 };
 module.exports = render;
