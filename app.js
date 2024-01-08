@@ -8,10 +8,47 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const flash = require("connect-flash");
 const path = require("path");
+
+const fileStore = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "public/images");
+  },
+  filename: (req, file, cb) => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDay();
+
+    const formatDate = `${year}-${month}-${day}`;
+    const formatFil = `${formatDate}-${file.originalname}`;
+    cb(null, formatFil);
+  },
+});
+const fileFilter = (req, file, cb) => {
+  let png = file.mimeType === "image/png";
+  let jpg = file.mimeType === "image/jpg";
+  let jpeg = file.mimeType === "image/jpeg";
+  if (png || jpeg || jpg) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
 app.set("view engin", "ejs");
 app.set("views", "views");
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(
+  multer({
+    storage: fileStore,
+    fileFilter: fileFilter,
+  }).single("image")
+);
+
 app.use(express.static(path.join(__dirname, "public")));
+app.use(
+  "/public/image",
+  express.static(path.join(__dirname, "public", "images"))
+);
 app.use(flash());
 const csrf = csurf();
 app(csrf());
@@ -44,4 +81,4 @@ const start = async () => {
     console.log(err);
   }
 };
-start()
+start();
