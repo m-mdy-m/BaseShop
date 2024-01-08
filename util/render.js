@@ -1,9 +1,10 @@
 const render = (req, res, view, title, msgErr = null, validateErrors = [], {...newObj}) => {
   if (msgErr.length > 0) {
-  return msgErr
+      msgErr = msgErr[0].msg
   } else {
     msgErr = null;
   }
+  console.log(msgErr)
   var ErrorPath;
   validateErrors.forEach(e =>{
     ErrorPath = e.path

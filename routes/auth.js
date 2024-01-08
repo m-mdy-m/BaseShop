@@ -10,10 +10,10 @@ function isMatchPassword(req, confirmPassword) {
   const password = req.body.password;
   return password === confirmPassword;
 }
-router.get("/signUp", authControl.getSignUp);
+router.get("/signup", authControl.getSignUp);
 
 router.post(
-  "/signUp",
+  "/signup",
   [
     body("name").isString(),
     body("email")
