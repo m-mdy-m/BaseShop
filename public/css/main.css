@@ -28,6 +28,7 @@
 }
 .input {
   color: rgb(10, 10, 10);
+  text-transform: lowercase;
 }
 .btn {
   color: rgb(0, 0, 0);

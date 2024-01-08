@@ -11,5 +11,7 @@ module.exports = async (req, res, nxt) => {
     } catch (err) {
       console.log(err);
     }
+  }else{
+    nxt()
   }
 };
