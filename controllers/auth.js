@@ -46,18 +46,6 @@ exports.postSignUp = async (req, res, nxt) => {
   res.redirect("/");
 };
 exports.logOut = async (req, res, nxt) => {
-  const csrfToken = req.headers["csrf-token"];
-  console.log("CSRF token from request:", csrfToken);
-  console.log("CSRF token from session:", req.csrfToken());
-
-  if (!csrfToken) {
-    return res.status(400).json({ error: "CSRF token is missing" });
-  }
-
-  if (csrfToken !== req.session.csrfToken) {
-    return res.status(400).json({ error: "Invalid CSRF token" });
-  }
-
-  await req.session.destroy();
-  res.redirect("/signup");
+  req.session.destroy();
+  res.status(200).json({ message: "Logged out successfully" });
 };

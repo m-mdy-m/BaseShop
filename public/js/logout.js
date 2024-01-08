@@ -9,7 +9,7 @@ function logout(e) {
   })
      .then((response) => {
        if (response.ok) {
-         window.location.href = "/"; 
+         window.location.href = "/";
        } else {
          throw new Error("Failed to log out");
        }
@@ -18,3 +18,4 @@ function logout(e) {
        console.error("Error:", error);
      });
  }
+ 
