@@ -20,12 +20,21 @@ router.post(
     body("email")
       .isEmail()
       .normalizeEmail()
-      .custom(async (val, { req }) => {findUser(val)}),
-      body('password').isLength({min : 5}).trim(),
-      body('confirmPassword').trim().custom((val , {req})=>{
-        console.log('val =>', val)
-        console.log('req =>', req)
-      })
+      .custom(async (val, { req }) => {
+        findUser(val);
+      }),
+    body("password").isLength({ min: 5 }).trim(),
+    body("confirmPassword")
+      .trim()
+      .custom((val, { req }) => {
+        const password = req.body.password;
+        console.log("=>", password);
+        console.log("=>", val);
+        if (val === password) {
+          return true;
+        }
+        throw new Error("THIS NOT MATCH PASSWORD");
+      }),
   ],
   authControl.postSignUp
 );
