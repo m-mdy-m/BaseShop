@@ -1,0 +1,60 @@
+<div class="container">
+    <header class="header">
+      <div class="nav">
+        <li class="nav__item">
+          <a href="/" class="nav__item-link <%= path==='/'?'active':'' %>"
+            >shop</a
+          >
+        </li>
+        <% if(isAuth){ %>
+        <li class="nav__item">
+          <a
+            href="/cart"
+            class="nav__item-link <%= path==='/cart'?'active':'' %>"
+            >cart</a
+          >
+        </li>
+        <li class="nav__item">
+          <a
+            href="/order"
+            class="nav__item-link <%= path==='/order'?'active':'' %>"
+            >order</a
+          >
+        </li>
+        <li class="nav__item">
+          <a
+            href="/admin"
+            class="nav__item-link <%= path==='/admin'?'active':'' %>"
+            >admin</a
+          >
+        </li>
+        <li class="nav__item">
+          <a
+            href="/add-product"
+            class="nav__item-link <%= path==='/add-product'?'active':'' %>"
+            >add-product</a
+          >
+        </li>
+        <% } %>
+      </div>
+      <div class="nav">
+        <% if(!isAuth){ %>
+        <li class="nav__item">
+          <a
+            href="/signup"
+            class="nav__item-link <%= path==='/signup'?'active':'' %>"
+          >signup</a>
+        </li>
+        <li class="nav__item">
+          <a
+            href="/login"
+            class="nav__item-link <%= path==='/login'?'active':'' %>"
+          >login</a>
+        </li>
+        <% }else{ %>
+        <li class="nav__item">
+          <a href="/logOut" class="nav__item-link">logOut</a>
+        </li>
+        <% } %>
+      </div>
+    </header>
