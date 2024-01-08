@@ -21,7 +21,7 @@ exports.postSignUp = async (req, res, nxt) => {
   const err = validationResult(req);
   if (!err.isEmpty()) {
     let errors = err.array();
-    console.log(errors)
+    console.log(errors);
     return render(req, res, "auth/signUp", "SIGNUP", err.array(), errors, {
       oldValue: {
         name: name,
@@ -46,6 +46,18 @@ exports.postSignUp = async (req, res, nxt) => {
   res.redirect("/");
 };
 exports.logOut = async (req, res, nxt) => {
+  const csrfToken = req.headers["csrf-token"];
+  console.log("CSRF token from request:", csrfToken);
+  console.log("CSRF token from session:", req.csrfToken());
+
+  if (!csrfToken) {
+    return res.status(400).json({ error: "CSRF token is missing" });
+  }
+
+  if (csrfToken !== req.session.csrfToken) {
+    return res.status(400).json({ error: "Invalid CSRF token" });
+  }
+
   await req.session.destroy();
-  res.redirect('/signup')
+  res.redirect("/signup");
 };
