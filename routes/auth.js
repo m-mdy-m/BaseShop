@@ -28,12 +28,19 @@ router.post(
       .isEmail()
       .normalizeEmail()
       .custom(async (val) => {
-        findUser(val);
+        const user = await User.findOne({ email: val });
+        if (!user) {
+          throw new Error("HAS EMAiL");
+        }
+        return true;
       }),
     body("password").isLength({ min: 5 }).trim(),
     body("confirmPassword")
       .custom((val, { req }) => {
-        isMatchPassword(req, val);
+        if (val !== req.body.password) {
+          throw new Error("NOT MATCH PASSWORD");
+        }
+        return true;
       })
       .trim(),
   ],
