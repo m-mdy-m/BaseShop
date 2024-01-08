@@ -27,7 +27,10 @@ router.post(
     body("password").isLength({ min: 5 }).trim(),
     body("confirmPassword")
       .custom((val, { req }) => {
-        isMatchPassword(req, val);
+        if (val !== req.body.password) {
+          throw new Error("NOT MATCH PASSWORD");
+        }
+        return true;
       })
       .trim(),
   ],
