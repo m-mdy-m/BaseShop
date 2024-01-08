@@ -53,8 +53,8 @@
         </li>
         <% }else{ %>
         <li class="nav__item">
-          <button type="button" class="nav__item-link"onclick="logout(this)">logOut</button>
-          <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+          <button class="nav__item-link" type="button" >logOut</button>
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         </li>
         <% } %>
       </div>
