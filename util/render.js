@@ -1,10 +1,15 @@
-const render = (req, res, view, title, msgErr = null, validateErrors = [], {...newObj}) => {
-  if (msgErr.length > 0) {
+const render = (req, res, view, title, msgErr=null, validateErrors = [], {...newObj}={}) => {
+  try{
+   if (msgErr.length > 0 && msgErr) {
       msgErr = msgErr[0].msg
   } else {
     msgErr = null;
   }
-  console.log(msgErr)
+  }
+  catch(er){
+    console.log(er)
+  }
+  
   var ErrorPath;
   validateErrors.forEach(e =>{
     ErrorPath = e.path

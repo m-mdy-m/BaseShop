@@ -23,6 +23,8 @@ app.use(locals);
 app.use(user)
 
 const authRouter = require('./routes/auth')
+const shopRouter = require('./routes/shop')
+app.use(shopRouter)
 
 app.use(authRouter)
 const URL = "mongodb://localhost:27017/BaseShop";
