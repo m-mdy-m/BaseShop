@@ -25,16 +25,16 @@
         <div class="pagination">
           <% if(page !== && prevPage !== 1){ %>
             <a href="?page=1">1</a>
-          <%  }%>
+          <%}%>
           <% if(hasPrevPage){ %>
-            <a href="?page=<%- prevPage %>"> <%- prevPage %> </a>
+            <a href="?page=<%= prevPage %>"> <%= prevPage %> </a>
           <% } %>
-          <a href="?page=<%- page %>" class="active"><%- page %></a>
+          <a href="?page=<%= page %>" class="active"><%= page %></a>
           <% if(hasNxtPage){ %>
-            <a href="?page=<%= nxtPage %>"> <%- nxtPage %> </a>
+            <a href="?page=<%= nxtPage %>"> <%= nxtPage %> </a>
           <% } %>
           <% if (lastPage !== page && nxtPage !== lastPage ){ %>
-            <a href="?page=<%- lastPage %>"> <%- lastPage %> </a>
+            <a href="?page=<%= lastPage %>"> <%= lastPage %> </a>
             <% } %>
         </div>
       </div>
