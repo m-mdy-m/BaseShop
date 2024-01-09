@@ -2,8 +2,16 @@ const render = require("../util/render");
 const Product = require("../models/Product");
 const User = require("../models/User");
 const { validationResult } = require("express-validator");
+
+const ITEMS_IN_PAGE = 2;
+
 exports.getShop = async (req, res, nxt) => {
-  const products = await Product.find();
+  const page = Number(req.query.page || 1);
+  const numProduct = await Product.countDocuments();
+  console.log('(page -1)* ITEMS_IN_PAGE =>', (page -1)* ITEMS_IN_PAGE)
+  console.log('numProduct =>', numProduct)
+  
+  const products = await Product.find().skip((page -1)* ITEMS_IN_PAGE).limit(ITEMS_IN_PAGE)
   render(req, res, "shop/index", "HOME", null, [], { products });
 };
 exports.getAddProduct = (req, res, nxt) => {

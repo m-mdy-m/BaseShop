@@ -89,6 +89,7 @@
   width: 150px;
   height: 200px;
   border-radius: 8px;
+  object-fit: cover;
 }
 .card__text {
   color: antiquewhite;
