@@ -8,9 +8,9 @@ const render = (req, res, view, title, msgErr=null, validateErrors = [], {...new
     name : '',
     email : '',
     password : '',
-    if(confirmPassword){
-      confirmPassword = ""
-    },
+  }
+  if(newObj.oldValue.confirmPassword){
+    newObj.oldValue.confirmPassword = ''
   }
   var ErrorPath;
   validateErrors.forEach(e =>{

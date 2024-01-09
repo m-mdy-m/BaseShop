@@ -44,3 +44,20 @@ exports.logOut = async (req, res, nxt) => {
 exports.getLogin = async (req,res,nxt)=>{
   render(req,res,'auth/login','LOGIN')
 }
+exports.postLogin = async (req,res,nxt)=>{
+  const body = req.body
+  const name = body.name
+  const email = body.name
+  const password = body.password
+  const err = validationResult(req)
+  if(!err.isEmpty()){
+    let Errors = err.array()
+    return render (req,res,'auth/login', 'LOGIN', err.array()[0].msg,Errors, {
+      oldValue : {
+        name,
+        email,
+        password,
+      }
+    })
+  }
+}
