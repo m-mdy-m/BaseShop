@@ -3,13 +3,23 @@ const Product = require("../models/Product");
 const User = require("../models/User");
 const { validationResult } = require("express-validator");
 
-const NUMBER_PRODUCT =  4
+const NUMBER_PRODUCT = 4;
 exports.getShop = async (req, res, nxt) => {
-  const page = +req.query.page 
-  let totalProduct;
-  const nap = await Product.countDocuments() // ** NAP => number all product
-  const products = await Product.find().skip((page - 1)* NUMBER_PRODUCT).limit(NUMBER_PRODUCT)
-  render(req, res, "shop/index", "HOME", null, [], { products });
+  const page = +req.query.page;
+  const nap = await Product.countDocuments(); // ** NAP => number all product
+
+  const products = await Product.find()
+    .skip((page - 1) * NUMBER_PRODUCT)
+    .limit(NUMBER_PRODUCT);
+  render(req, res, "shop/index", "HOME", null, [], {
+    products,
+    page,
+    hasNxtPage: NUMBER_PRODUCT * page < nap,
+    hasPrevPage: page > 1,
+    nxtPage: page + 1,
+    prevPage: page - 1,
+    lastPage: Math.ceil(nap / NUMBER_PRODUCT),
+  });
 };
 exports.getAddProduct = (req, res, nxt) => {
   render(req, res, "shop/add-product", "ADD_PRODUCT", null, [], {

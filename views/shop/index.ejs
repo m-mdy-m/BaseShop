@@ -20,10 +20,23 @@
               </form>
             </div>
         </div>
+        
         <% }) %>
-        <a href="?page=1">1</a>
-        <a href="?page=2">2</a>
-        <a href="?page=3">3</a>
+        <div class="pagination">
+          <% if(page !== && prevPage !== 1){ %>
+            <a href="?page=1">1</a>
+          <%  }%>
+          <% if(hasPrevPage){ %>
+            <a href="?page=<%- prevPage %>"> <%- prevPage %> </a>
+          <% } %>
+          <a href="?page=<%- page %>" class="active"><%- page %></a>
+          <% if(hasNxtPage){ %>
+            <a href="?page=<%= nxtPage %>"> <%- nxtPage %> </a>
+          <% } %>
+          <% if (lastPage !== page && nxtPage !== lastPage ){ %>
+            <a href="?page=<%- lastPage %>"> <%- lastPage %> </a>
+            <% } %>
+        </div>
       </div>
     <% }else{ %>
       <h1>NO FOUND PRODUCT</h1>
