@@ -13,9 +13,14 @@ const Product = new Schema({
     type: Number,
     required: true,
   },
-  userID: {
+  userId: {
     type: Schema.Types.ObjectId,
     required: true,
   },
+  username: {
+    type: Schema.Types.String,
+    required: true,
+    ref: "User",
+  },
 });
-module.exports = mongoose.model("Product", Product)
+module.exports = mongoose.model("Product", Product);
