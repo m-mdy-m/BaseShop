@@ -3,6 +3,7 @@ const User = require("../models/User");
 const { validationResult } = require("express-validator");
 const bcryptjs = require("bcryptjs");
 const crypto = require("crypto");
+const sendEmail = require("../util/sendEmail");
 exports.getSignUp = (req, res, nxt) => {
   render(req, res, "auth/signup", "SIGNUP");
 };
@@ -123,6 +124,8 @@ exports.postReset = async (req, res, nxt) => {
     const date = new Date();
     user.Token = token;
     user.dateToken = date.setMinutes(date.getMinutes() + 10);
-    await user.save()
+    await user.save();
+    await sendEmail(email, token);
+    res.redirect("/");
   });
 };

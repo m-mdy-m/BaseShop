@@ -12,7 +12,7 @@ const sendEmail = (email,token)=>{
         from : "mahdimamashli1383@gmail.com",
         to : email,
         subject : "RESET PASSWORD",
-        html : `<a href=http://localhost:3000/reset/${token}></a>`
+        html : `<a href=http://localhost:3000/reset/${token}>LINK</a>`
     })
 }
 module.exports = sendEmail
