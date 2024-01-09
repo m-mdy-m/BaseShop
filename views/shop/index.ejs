@@ -4,21 +4,24 @@
   <h1 class="Error"><%= msgErr %></h1>
   <% } %>
   <% if(products.length > 0){ %>
-    <% products.forEach(product => { %>
-          <div>
-              <div>
-                <h1> <%- product.title %> </h1>
-                <img src="<%- product.imagePath %>" alt="">
-                <h4> <%- product.price %> </h4>
-              </div>
-              <div>
-                <form action="/cart" method="post">
-                  <button type="submit">Add Cart</button>
-                  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                </form>
-              </div>
-          </div>
-    <% }) %>
+    <div class="wrapper">
+        <% products.forEach(product => { %>
+
+        <div class="card" >
+            <div class="card_item" >
+              <h1 class="card__text" > <%- product.title %> </h1>
+              <img src="<%- product.imagePath %>" alt="<%- product.title %>">
+              <h4  class="card__text"> <%- product.price %> </h4>
+            </div>
+            <div class="card__cart">
+              <form action="/cart" method="post">
+                <button class="btn" type="submit">Add Cart</button>
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              </form>
+            </div>
+        </div>
+        <% }) %>
+      </div>
     <% }else{ %>
       <h1>NO FOUND PRODUCT</h1>
       <% } %>
