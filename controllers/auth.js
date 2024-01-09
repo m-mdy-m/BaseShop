@@ -47,8 +47,10 @@ exports.getLogin = async (req,res,nxt)=>{
 exports.postLogin = async (req,res,nxt)=>{
   const body = req.body
   const name = body.name
-  const email = body.name
+  const email = body.email
   const password = body.password
+  console.log('name =>', name)
+  console.log('email =>', email)
   const err = validationResult(req)
   if(!err.isEmpty()){
     let Errors = err.array()
@@ -60,4 +62,30 @@ exports.postLogin = async (req,res,nxt)=>{
       }
     })
   }
+  let user = await User.findOne({email : email})
+  console.log('user =>', user)
+  if(!user){
+    let Errors = err.array()
+    return render (req,res,'auth/login', 'LOGIN', "EMAIL IS NOT IN DATABASE",[], {
+      oldValue : {
+        name : name,
+        email : email,
+        password : password ,
+      }
+    })
+  }
+  const matchPassword =  await bcryptjs.compare(password, user.password)
+  if(!matchPassword){
+    return render (req,res,'auth/login', 'LOGIN', "PASSWORD IS NOT MATCH",[], {
+      oldValue : {
+        name : name,
+        email : email,
+        password : password ,
+      }
+    })
+  }
+  req.session.user = user
+  req.session.isLogin = true
+  await req.session.save()
+  res.redirect('/')
 }
