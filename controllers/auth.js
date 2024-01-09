@@ -138,10 +138,10 @@ exports.getNewPassword = async (req, res, nxt) => {
   const user = await User.findOne({
     Token: token,
   });
-  if (date > user.dateToken) {
+  if (!user) {
     return res.redirect("/");
   }
-  if (!user) {
+  if (date > user.dateToken) {
     return res.redirect("/");
   }
   const msgErr = req.flash("Err");
