@@ -42,4 +42,10 @@ router.post('/login',[
   body('email').isEmail().normalizeEmail().trim(),
   body('password').isLength({min:5}).trim()
 ],authControl.postLogin)
+
+
+router.get('/reset', authControl.getReset)
+
+
+
 module.exports = router;

@@ -89,3 +89,6 @@ exports.postLogin = async (req,res,nxt)=>{
   await req.session.save()
   res.redirect('/')
 }
+exports.getReset = (req,res)=>{
+  render(req,res,'auth/reset','RESET')
+}
