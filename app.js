@@ -14,7 +14,7 @@ app.set("views", "views");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(multer);
 app.use(express.static(path.join(__dirname, "public")));
-app.use("/public/image",express.static(path.join(__dirname, "public", "images")));
+app.use("/public/images",express.static(path.join(__dirname, "public", "images")));
 app.use(session);
 app.use(flash());
 const csrfProtection = csurf();
