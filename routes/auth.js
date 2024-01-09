@@ -18,7 +18,7 @@ router.post(
         }
         return true;
       }),
-    body("password").isStrongPassword().isLength({min:5}).trim(),
+    body("password").isLength({min:5}).trim(),
     body("confirmPassword")
       .custom((val, { req }) => {
         if (val !== req.body.password) {
@@ -39,13 +39,7 @@ router.get('/login', authControl.getLogin)
 
 router.post('/login',[
   body('name').isString().trim(),
-  body('email').isEmail().normalizeEmail().custom(async (val)=>{
-    const user = await User.findOne({email : val})
-    if(user){
-      throw new Error("HAS EMAIL")
-    }
-    return true
-  }).trim(),
-  body('password').isStrongPassword().isLength({min:5}).trim()
+  body('email').isEmail().normalizeEmail().trim(),
+  body('password').isLength({min:5}).trim()
 ],authControl.postLogin)
 module.exports = router;

@@ -4,13 +4,15 @@ const render = (req, res, view, title, msgErr=null, validateErrors = [], {...new
   } else {
     msgErr = null;
   }
-  newObj.oldValue ={
-    name : '',
-    email : '',
-    password : '',
-  }
-  if(newObj.oldValue.confirmPassword){
-    newObj.oldValue.confirmPassword = ''
+  if(Object.keys(newObj).length === 0 ){
+    newObj.oldValue ={
+      name : '',
+      email : '',
+      password : '',
+    }
+    if(newObj.oldValue.confirmPassword){
+      newObj.oldValue.confirmPassword = ''
+    }
   }
   var ErrorPath;
   validateErrors.forEach(e =>{
