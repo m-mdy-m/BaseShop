@@ -16,6 +16,9 @@
       <label for="password">password</label>
       <input type="text" class="input <%= validateErrors === 'password'?"invalid":''; %> " name="password" value="<%- oldValue.password%>"/>
     </div>
+    <div class="wrapperInput">
+      <a href="/reset" class="nav__item-link">RESET PASSWORD</a>
+    </div>
     <div>
       <button type="submit" class="btn">LOGIN</button>
     </div>
