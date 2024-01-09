@@ -8,11 +8,8 @@
       <label for="email">email</label>
       <input type="email" class="input <%= validateErrors === 'email'?"invalid":''; %> " name="email" value="<%- oldValue.email%>"/>
     </div>
-    <div class="wrapperInput">
-      <a href="/reset" class="nav__item-link">SEND LINK EMAIL</a>
-    </div>
     <div>
-      <button type="submit" class="btn">LOGIN</button>
+      <button type="submit" class="btn  nav__item-link">SEND LINK EMAIL</button>
     </div>
     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
   </form>

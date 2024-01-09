@@ -46,6 +46,6 @@ router.post('/login',[
 
 router.get('/reset', authControl.getReset)
 
-
+router.post('/reset',authControl.postReset)
 
 module.exports = router;
