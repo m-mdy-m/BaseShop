@@ -3,15 +3,7 @@ const User = require("../models/User");
 const { validationResult } = require("express-validator");
 const bcryptjs = require("bcryptjs");
 exports.getSignUp = (req, res, nxt) => {
-  const msgErr = req.flash("ERROR");
-  render(req, res, "auth/signup", "SIGNUP", msgErr, [], {
-    oldValue: {
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    },
-  });
+  render(req, res, "auth/signup", "SIGNUP");
 };
 exports.postSignUp = async (req, res, nxt) => {
   const name = req.body.name;
@@ -49,3 +41,6 @@ exports.logOut = async (req, res, nxt) => {
   req.session.destroy();
   res.status(200).json({ message: "Logged out successfully" });
 };
+exports.getLogin = async (req,res,nxt)=>{
+  render(req,res,'auth/login','LOGIN')
+}

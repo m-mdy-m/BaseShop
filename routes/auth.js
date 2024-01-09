@@ -32,4 +32,8 @@ router.post(
 );
 
 router.delete("/logout", authControl.logOut);
+
+
+
+router.get('/login', authControl.getLogin)
 module.exports = router;
