@@ -3,14 +3,18 @@ const Product = require("../models/Product");
 const User = require("../models/User");
 const { validationResult } = require("express-validator");
 
-const NUMBER_PRODUCT = 4;
+const NUMBER_PRODUCT = 2;
 exports.getShop = async (req, res, nxt) => {
-  const page = +req.query.page;
+  const page = +req.query.page || 1;
   const nap = await Product.countDocuments(); // ** NAP => number all product
 
   const products = await Product.find()
     .skip((page - 1) * NUMBER_PRODUCT)
     .limit(NUMBER_PRODUCT);
+  console.log('1 =>',NUMBER_PRODUCT * page < nap);
+  console.log('2 =>',page > 1);
+  console.log('3 =>',page + 1);
+  console.log('4 =>',Math.ceil(nap / NUMBER_PRODUCT));
   render(req, res, "shop/index", "HOME", null, [], {
     products,
     page,

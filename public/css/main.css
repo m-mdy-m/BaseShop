@@ -97,3 +97,24 @@
   font-size: 20px;
   text-transform: uppercase;
 }
+.pagination {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pagination_link {
+  text-decoration: none;
+  font-family: sans-serif;
+  font-size: 25px;
+  color: aliceblue;
+  margin: 0 4px;
+}
+.pagination_link:hover {
+  color: #7e2553;
+}
+.activePage {
+  background-color: rgb(14, 117, 83);
+  padding: 4px;
+  border-radius: 8px;
+}
