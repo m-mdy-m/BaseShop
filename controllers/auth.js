@@ -122,10 +122,39 @@ exports.postReset = async (req, res, nxt) => {
       return res.redirect("/signUp");
     }
     const date = new Date();
+    console.log("base date", date);
+    await date.setMinutes(date.getMinutes() + 10);
     user.Token = token;
-    user.dateToken = date.setMinutes(date.getMinutes() + 10);
+    user.dateToken = date;
+    console.log("dateToken old", user.dateToken);
     await user.save();
     await sendEmail(email, token);
     res.redirect("/");
+  });
+};
+exports.getNewPassword = async (req, res, nxt) => {
+  const token = req.params.token;
+  let date = new Date();
+  const user = await User.findOne({
+    Token: token,
+  });
+  if (date === user.dateToken) {
+    res.redirect("/");
+  }
+  console.log("dateToken new", user.dateToken);
+  console.log("date", date);
+  if (!user) {
+    res.redirect("/");
+  }
+  const msgErr = req.flash("Err");
+  render(req, res, "auth/new-password", "RESET NEW PASSWORD", msgErr, [], {
+    oldValue: {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    userId: user._id,
+    token: token,
   });
 };
