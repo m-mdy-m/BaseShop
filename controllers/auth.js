@@ -138,13 +138,11 @@ exports.getNewPassword = async (req, res, nxt) => {
   const user = await User.findOne({
     Token: token,
   });
-  if (date === user.dateToken) {
-    res.redirect("/");
+  if (date > user.dateToken) {
+    return res.redirect("/");
   }
-  console.log("dateToken new", user.dateToken);
-  console.log("date", date);
   if (!user) {
-    res.redirect("/");
+    return res.redirect("/");
   }
   const msgErr = req.flash("Err");
   render(req, res, "auth/new-password", "RESET NEW PASSWORD", msgErr, [], {
@@ -157,4 +155,51 @@ exports.getNewPassword = async (req, res, nxt) => {
     userId: user._id,
     token: token,
   });
+};
+exports.postNewPass = async (req, res) => {
+  const token = req.body.token;
+  const userId = req.body.userId;
+  const password = req.body.password;
+  const confirmPassword = req.body.confirmPassword;
+  const err = validationResult(req);
+  if (!err.isEmpty()) {
+    let errors = err.array();
+    return render(
+      req,
+      res,
+      "auth/new-password",
+      "new password",
+      err.array()[0].msg,
+      errors,
+      {
+        oldValue: {
+          password: password,
+          confirmPassword: confirmPassword,
+        },
+      }
+    );
+  }
+  const user = await User.findById(userId);
+  if (!user) {
+    return render(
+      req,
+      res,
+      "auth/new-password",
+      "new password",
+      "USER NOT FOUND",
+      [],
+      {
+        oldValue: {
+          password: password,
+          confirmPassword: confirmPassword,
+        },
+      }
+    );
+  }
+  const hashedPass = await bcryptjs.hash(password , 12)
+  user.password = hashedPass
+  user.Token = undefined
+  user.dateToken = undefined
+  await user.save()
+  return res.redirect('/login')
 };

@@ -47,4 +47,6 @@ router.get('/reset', authControl.getReset)
 router.post('/reset',authControl.postReset)
 
 router.get('/reset/:token', authControl.getNewPassword)
+
+router.post('/new-password', authControl.postNewPass)
 module.exports = router;
