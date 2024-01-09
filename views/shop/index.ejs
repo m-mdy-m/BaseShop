@@ -3,6 +3,24 @@
   <% if(msgErr !== null){ %>
   <h1 class="Error"><%= msgErr %></h1>
   <% } %>
-  
+  <% if(products.length > 0){ %>
+    <% products.forEach(product => { %>
+          <div>
+              <div>
+                <h1> <%- product.title %> </h1>
+                <img src="<%- product.imagePath %>" alt="">
+                <h4> <%- product.price %> </h4>
+              </div>
+              <div>
+                <form action="/cart" method="post">
+                  <button type="submit">Add Cart</button>
+                  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                </form>
+              </div>
+          </div>
+    <% }) %>
+    <% }else{ %>
+      <h1>NO FOUND PRODUCT</h1>
+      <% } %>
 </main>
 <%- include('../includes/end.ejs') %>
