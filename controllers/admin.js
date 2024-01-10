@@ -69,6 +69,5 @@ exports.EditProduct = async (req, res, nxt) => {
   product.price = price;
   fileHelper(product.imagePath);
   product.imagePath = image.path;
-  product.save();
-  res.status(200).redirect('/')
+  await product.save();
 };
