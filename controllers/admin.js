@@ -1,6 +1,7 @@
-const Product = require('../models/Product')
-const User = require('../models/User')
-const render = require('../util/render')
+const Product = require("../models/Product");
+const User = require("../models/User");
+const render = require("../util/render");
+const fileHelper = require("../util/fileHelper");
 const NUMBER_PRODUCT = 3;
 exports.getAdmin = async (req, res, nxt) => {
   const page = +req.query.page || 1;
@@ -8,7 +9,6 @@ exports.getAdmin = async (req, res, nxt) => {
   const products = await Product.find()
     .skip((page - 1) * NUMBER_PRODUCT)
     .limit(NUMBER_PRODUCT);
-  console.log("=>", Math.ceil(totalItem / NUMBER_PRODUCT));
   render(req, res, "admin/admin", "ADMIN", null, [], {
     products,
     page: page,
@@ -18,4 +18,14 @@ exports.getAdmin = async (req, res, nxt) => {
     nxtPage: page + 1,
     lastPage: Math.ceil(totalItem / NUMBER_PRODUCT),
   });
+};
+exports.deleteProduct = async (req, res, nxt) => {
+  const prodId = req.body.prodId;
+  const product = await Product.findById(prodId);
+  if (!product) {
+    return nxt(new Error("PRODUCT NOT FOUND"));
+  }
+  fileHelper(product.imagePath);
+  await Product.deleteOne({ _id: prodId, userId: req.user._id });
+  res.status(200).json({ message: "success!" });
 };
