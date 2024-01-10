@@ -13,31 +13,32 @@
               <img src="<%- product.imagePath %>" alt="<%- product.title %>">
               <h4  class="card__text"> <%- product.price %> </h4>
             </div>
+            <% if(isAuth){ %>
             <div class="card__cart">
               <form action="/cart" method="post">
                 <button class="btn" type="submit">Add Cart</button>
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
               </form>
             </div>
+            <% } %>
         </div>
         
         <% }) %>
       </div>
       <div class="pagination">
-        <% if(page !==1 && prevPage !== 1){ %>
-          <a href="?page=1"  class="pagination_link">1</a>
-        <%}%>
+        <% if(page !== 1 & prevPage !== 1){ %>
+          <a href="?page=1" class="pagination_link" >1</a>
+        <% } %>
         <% if(hasPrevPage){ %>
-          <a href="?page=<%= prevPage %>"  class="pagination_link"> <%=prevPage%> </a>
+          <a href="?page=<%- prevPage %>" class="pagination_link" ><%- prevPage %></a>
         <% } %>
-        <a href="?page=<%= page %>" class="activePage  pagination_link"><%=page%></a>
-        
+        <a href="?page=<%- page %>" class="activePage pagination_link" ><%- page %></a>
         <% if(hasNxtPage){ %>
-          <a href="?page=<%= nxtPage %>"  class="pagination_link"> <%= nxtPage %> </a>
+          <a href="?page=<%- nxtPage %>" class="pagination_link" ><%- nxtPage %></a>
         <% } %>
-        <% if (lastPage !== page && nxtPage !== lastPage ){ %>
-          <a href="?page=<%= lastPage %>"  class="pagination_link"><%= lastPage %></a>
-          <% } %>
+        <% if(lastPage !== page && nxtPage !== lastPage){ %>
+          <a href="?page=<%- lastPage %>" class="pagination_link" ><%- lastPage %></a>
+        <% } %>
       </div>
     <% }else{ %>
       <h1>NO FOUND PRODUCT</h1>
