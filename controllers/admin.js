@@ -57,8 +57,8 @@ exports.EditProduct = async (req, res, nxt) => {
       err.array()[0].msg,
       errors,
       {
-          edit: true,
-          hasError : true,
+        edit: true,
+        hasError: true,
         product: {
           title: title,
           price: price,
@@ -69,11 +69,15 @@ exports.EditProduct = async (req, res, nxt) => {
   }
   product.title = title;
   product.price = price;
-  fileHelper(product.imagePath);
-  product.imagePath = image.path;
+  if (product.imagePath && image) {
+    fileHelper(product.imagePath);
+    product.imagePath = image.path;
+  } else {
+    product.imagePath = '';
+  }
   try {
     await product.save();
-    res.redirect("/admin/products");
+    res.redirect("/admin");
   } catch (err) {
     const error = new Error(err);
     error.httpStatusCode = 500;
