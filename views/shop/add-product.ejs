@@ -3,7 +3,7 @@
   <% if(msgErr){ %>
   <h1 class="Error"><%= msgErr %></h1>
   <% } %>
-  <form action="<%= edit?"":"/add-product" %>" method="<%= edit?"":"post" %>" class="forms" enctype="multipart/form-data">
+  <form action="<%= edit?"/edit-product":"/add-product" %>" method="<%= edit?"":"post" %>" class="forms" enctype="multipart/form-data">
     <div class="wrapperInput">
       <label for="title">title</label>
       <input type="text" class="input <%= validateErrors === 'title'?'invalid':''; %> " name="title" value="<% if(edit || hasError) {%><%=product.title%><%}%>"/>

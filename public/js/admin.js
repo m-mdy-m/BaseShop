@@ -24,15 +24,12 @@ const deleteProduct = async (btn) => {
 const editProduct = async (btn) => {
   const form = btn.closest("form");
   const csrf = form.querySelector("[name=_csrf]").value;
-  const url = "/edit-product";
   const formData = new FormData(form);
-  const response = await fetch(url, {
+  const response = await fetch("http://localhost:3000/edit-product", {
     method: "PUT",
     headers: {
       "CSRF-Token": csrf,
     },
     body: formData,
   });
-  await response.json();
-  return window.location.href = "/";
 };
