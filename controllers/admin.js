@@ -76,4 +76,5 @@ exports.EditProduct = async (req, res, nxt) => {
     product.imagePath = "";
   }
   await product.save();
+  return res.status(200).json({ message: 'Product updated successfully.' });
 };
