@@ -1,6 +1,6 @@
 const router = require('../util/router')
 const isAuth = require('../middleware/is-Auth')
-
-router.get('/admin',isAuth,)
+const adminControl = require('../controllers/admin')
+router.get('/admin',isAuth,adminControl.getAdmin)
 
 module.exports = router

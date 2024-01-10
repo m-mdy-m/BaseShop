@@ -24,9 +24,10 @@ app.use(user)
 
 const authRouter = require('./routes/auth')
 const shopRouter = require('./routes/shop')
-app.use(shopRouter)
-
+const adminRouter = require('./routes/admin')
 app.use(authRouter)
+app.use(shopRouter)
+app.use(adminRouter)
 const URL = "mongodb://localhost:27017/BaseShop";
 const start = async () => {
   try {

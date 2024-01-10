@@ -15,8 +15,9 @@
             </div>
             <% if(isAuth){ %>
             <div class="card__cart">
-                <a href="/edit-product">EDIT</a>
+                <a href="/edit-product" class="btn">EDIT</a>
                 <button class="btn" type="button" onclick="deleteProduct(this)">DELElTE</button>
+                <input type="hidden" name="prodId" value="<%- product._id %>">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             </div>
             <% } %>

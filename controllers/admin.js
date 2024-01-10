@@ -9,7 +9,7 @@ exports.getAdmin = async (req, res, nxt) => {
     .skip((page - 1) * NUMBER_PRODUCT)
     .limit(NUMBER_PRODUCT);
   console.log("=>", Math.ceil(totalItem / NUMBER_PRODUCT));
-  render(req, res, "shop/index", "HOME", null, [], {
+  render(req, res, "admin/admin", "ADMIN", null, [], {
     products,
     page: page,
     prevPage: page - 1,
