@@ -3,10 +3,10 @@
   <% if(msgErr){ %>
   <h1 class="Error"><%= msgErr %></h1>
   <% } %>
-  <form action="<%= edit===true?"/edit-product":"/add-product" %>" method="post" class="forms" enctype="multipart/form-data">
+  <form action="<%= edit?"":"/add-product" %>" method="<%= edit?"":"post" %>" class="forms" enctype="multipart/form-data">
     <div class="wrapperInput">
       <label for="title">title</label>
-      <input type="text" class="input <%= validateErrors === 'title'?'invalid':''; %> " name="title" value="<% if(edit || hasError) {%> <%- product.title %> <%}%>"/>
+      <input type="text" class="input <%= validateErrors === 'title'?'invalid':''; %> " name="title" value="<% if(edit || hasError) {%><%-product.title%><%}%>"/>
     </div>
     <div class="wrapperInput">
       <label for="imagePath">imagePath</label>
@@ -14,15 +14,16 @@
     </div>
     <div class="wrapperInput">
       <label for="price">price</label>
-      <input type="text" class="input <%= validateErrors === 'price'?"invalid":''; %> " name="price" value="<% if(edit || hasError) {%> <%- product.price %> <%}%>"/>
+      <input type="text" class="input <%= validateErrors === 'price'?"invalid":''; %> " name="price" value="<% if(edit || hasError) {%><%-product.price%><%}%>"/>
     </div>
     <% if(edit){  %>
         <input type="hidden" name="prodId" value="<% product._id %>">
         <% } %>
     <div>
-      <button type="submit" class="btn"> <% if(edit){ %> UPDATE <%}else{ %> Add Product <% } %> </button>
+      <button type="<%= edit?"button":"submit" %>" class="btn" <% if(edit){ %> onclick="editProduct(this)" <% } %> > <% if(edit){ %> UPDATE <%}else{ %> Add Product <% } %> </button>
     </div>
     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
   </form>
 </main>
 <%- include('../includes/end.ejs') %>
+<script src="/js/admin.js"></script>
