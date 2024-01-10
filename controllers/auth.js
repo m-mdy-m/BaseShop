@@ -40,8 +40,12 @@ exports.postSignUp = async (req, res, nxt) => {
   res.redirect("/");
 };
 exports.logOut = async (req, res, nxt) => {
-  req.session.destroy();
-  res.status(200).json({ message: "Logged out successfully" });
+  try{
+    req.session.destroy();
+    res.status(200).json({ message: "Logged out successfully" });
+  }catch(err){
+    console.log(err)
+  }
 };
 exports.getLogin = async (req, res, nxt) => {
   render(req, res, "auth/login", "LOGIN");
@@ -105,7 +109,10 @@ exports.postLogin = async (req, res, nxt) => {
   req.session.user = user;
   req.session.isLogin = true;
   await req.session.save();
-  res.redirect("/");
+  if(req.session){
+    return res.redirect("/");
+  }
+  
 };
 exports.getReset = (req, res) => {
   render(req, res, "auth/reset", "RESET");
