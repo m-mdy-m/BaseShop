@@ -28,3 +28,21 @@ exports.deleteProduct = async (req, res, nxt) => {
   fileHelper(product.imagePath);
   await Product.deleteOne({ _id: prodId, userId: req.user._id });
 };
+exports.getEdit = async (req,res,nxt)=>{
+    const editMode = req.query.edit
+    const prodId = req.params.prodId
+    if(!editMode){
+        return res.redirect('/')
+    }
+    const product = await Product.findById(prodId)
+    console.log(prodId)
+    console.log(editMode)
+
+    render(req,res,'shop/add-product','EDIT',null,[],{
+        edit:editMode,
+        product,
+    })
+}
+exports.EditProduct = async (req,res,nxt)=>{
+    
+}
