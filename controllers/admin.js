@@ -20,13 +20,13 @@ exports.getAdmin = async (req, res, nxt) => {
   });
 };
 exports.deleteProduct = async (req, res, nxt) => {
-//   const prodId = req.params.prodId;
-//   console.log('proId =>', prodId)
-//   const product = await Product.findById(prodId);
-//   if (!product) {
-//     return nxt(new Error("PRODUCT NOT FOUND"));
-//   }
-//   fileHelper(product.imagePath);
-//   await Product.deleteOne({ _id: prodId, userId: req.user._id });
-//   res.status(200).json({ message: "success!" });
+  const prodId = req.params.prodId;
+  console.log('proId =>', prodId)
+  const product = await Product.findById(prodId);
+  if (!product) {
+    return nxt(new Error("PRODUCT NOT FOUND"));
+  }
+  fileHelper(product.imagePath);
+  await Product.deleteOne({ _id: prodId, userId: req.user._id });
+  res.status(200).json({ message: "success!" });
 };
