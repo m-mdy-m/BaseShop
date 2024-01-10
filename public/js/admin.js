@@ -22,15 +22,29 @@ const deleteProduct = async (btn) => {
   cardItem.parentNode.removeChild(cardItem);
 };
 const editProduct = async (btn) => {
-  const form = btn.closest("form");
-  const csrf = form.querySelector("[name=_csrf]").value;
-  const formData = new FormData(form);
-  const response = await fetch("/edit-product", {
-    method: "PUT",
-    headers: {
-      "CSRF-Token": csrf,
-    },
-    body: formData,
-  });
-  await response.json()
-};
+    console.log(btn);
+    const form = btn.closest("form");
+    const csrf = form.querySelector("[name=_csrf]").value;
+    const formData = new FormData(form);
+    try {
+      const response = await fetch("/edit-product", {
+        method: "PUT",
+        headers: {
+          "CSRF-Token": csrf,
+        },
+        body: formData,
+      });
+      const data = await response.json();
+      console.log(data);
+  
+      // If the edit was successful
+      if (response.ok) {
+        window.location.href = '/'; // This will redirect to the main page
+      } else {
+        // Handle the error, show a message to the user or something else
+        console.error('Edit failed:', data);
+      }
+    } catch (error) {
+      console.error('Error during fetch:', error);
+    }
+  };
