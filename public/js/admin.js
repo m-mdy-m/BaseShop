@@ -32,4 +32,5 @@ const editProduct = async (btn) => {
     },
     body: formData,
   });
+  await response.json()
 };

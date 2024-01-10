@@ -73,14 +73,7 @@ exports.EditProduct = async (req, res, nxt) => {
     fileHelper(product.imagePath);
     product.imagePath = image.path;
   } else {
-    product.imagePath = '';
+    product.imagePath = "";
   }
-  try {
-    await product.save();
-    res.redirect("/admin");
-  } catch (err) {
-    const error = new Error(err);
-    error.httpStatusCode = 500;
-    return nxt(error);
-  }
+  await product.save();
 };
