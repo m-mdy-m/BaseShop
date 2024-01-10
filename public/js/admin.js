@@ -1,5 +1,4 @@
 const deleteProduct = async (btn) => {
-  console.log("click");
   const csrf = btn.parentNode.querySelector("[name=_csrf]").value;
   const prodId = btn.parentNode.querySelector("[name=prodId]").value;
   const cards = document.querySelectorAll(".card");
@@ -12,20 +11,13 @@ const deleteProduct = async (btn) => {
   });
   cardItem.parentNode.removeChild(cardItem);
   const url = `/delete-product/${prodId}`;
-  fetch(url, {
+  const response = await fetch(url, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
       "CSRF-Token": csrf,
     },
-  })
-    .then((result) => {
-      return result.json();
-    })
-    .then((data) => {
-      cardItem.parentNode.removeChild(cardItem);
-    })
-    .catch((err) => {
-      console.log("err =>", err);
-    });
+  });
+  response.json();
+  cardItem.parentNode.removeChild(cardItem);
 };
