@@ -34,17 +34,15 @@ const editProduct = async (btn) => {
       },
       body: formData,
     });
-    const data = await response.json();
-    console.log(data);
 
     if (response.ok) {
       const data = await response.json();
       console.log(data);
-      window.location.href = "/";
+      window.location.href = "/"; 
     } else {
-      console.log("HTTP error:", response.status);
+      console.error("Edit failed:", response.status);
       const errorText = await response.text();
-      console.error("Edit failed:", errorText);
+      console.error("Failed to edit product:", errorText);
     }
   } catch (error) {
     console.error("Error during fetch:", error);
