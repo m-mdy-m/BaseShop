@@ -1,0 +1,32 @@
+<%- include('../includes/base.ejs') %> <%- include('../includes/header.ejs') %>
+<main class="main">
+  <% if(msgErr !== null){ %>
+  <h1 class="Error"><%= msgErr %></h1>
+  <% } %>
+  <% if(products.length > 0){ %>
+    <div class="wrapper">
+        <% products.forEach(product => { %>
+
+        <div class="card" >
+            <div class="card_item" >
+              <h1 class="card__text" > <%- product.title %> </h1>
+              <img src="<%- product.imagePath %>" alt="<%- product.title %>">
+              <h4  class="card__text"> <%- product.price %> </h4>
+            </div>
+            <% if(isAuth){ %>
+            <div class="card__cart">
+                <a href="/edit-product">EDIT</a>
+                <button class="btn" type="button" onclick="deleteProduct(this)">DELElTE</button>
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            </div>
+            <% } %>
+        </div>
+        
+        <% }) %>
+      </div>
+      <%- include('../includes/pagination.ejs', { page : page , prevPage : prevPage , hasNxtPage : hasNxtPage , hasPrevPage : hasPrevPage , nxtPage : nxtPage , lastPage:lastPage}) %>
+    <% }else{ %>
+      <h1>NO FOUND PRODUCT</h1>
+      <% } %>
+</main>
+<%- include('../includes/end.ejs') %>
