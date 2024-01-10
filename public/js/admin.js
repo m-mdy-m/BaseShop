@@ -1,5 +1,4 @@
 const deleteProduct = async (btn) => {
-  console.log("click");
   const csrf = btn.parentNode.querySelector("[name=_csrf]").value;
   const prodId = btn.parentNode.querySelector("[name=prodId]").value;
   const cards = document.querySelectorAll(".card");
@@ -10,9 +9,7 @@ const deleteProduct = async (btn) => {
         cardItem = card
     }
   })
-  console.log('cardItem =>',cardItem)
   cardItem.parentNode.removeChild(cardItem)
-  console.log('cardItem =>',cardItem.parentNode)
   const url = `/delete-product/${prodId}`;
   fetch(url, {
     method: "DELETE",

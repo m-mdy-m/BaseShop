@@ -28,5 +28,5 @@ exports.deleteProduct = async (req, res, nxt) => {
   }
   fileHelper(product.imagePath);
   await Product.deleteOne({ _id: prodId, userId: req.user._id });
-  res.status(200).json({ message: "success!" });
+  res.status(200).json();
 };
