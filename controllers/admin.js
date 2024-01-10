@@ -1,6 +1,6 @@
 const Product = require("../models/Product");
-const User = require("../models/User");
 const render = require("../util/render");
+const { validationResult } = require("express-validator");
 const fileHelper = require("../util/fileHelper");
 const NUMBER_PRODUCT = 3;
 exports.getAdmin = async (req, res, nxt) => {
@@ -44,11 +44,31 @@ exports.EditProduct = async (req, res, nxt) => {
   const title = req.body.title;
   const price = req.body.price;
   const prodId = req.body.prodId;
-  const product = await Product.findOne({ _id: prodId, userId: req.user._id });
-  console.log('product =>',product);
-  console.log('prodId =>',prodId);
   const image = req.file;
-  console.log('title =>',title);
-  console.log('price =>',price);
-  console.log('image =>',image);
+  const err = validationResult(req);
+  const product = await Product.findOne({ _id: prodId, userId: req.user._id });
+  if (!err.isEmpty()) {
+    let errors = err.array();
+    return render(
+      req,
+      res,
+      "shop/add-product",
+      "EDIT",
+      err.array()[0].msg,
+      errors,
+      {
+        product: {
+          title: title,
+          price: price,
+          imagePath: image.path,
+        },
+      }
+    );
+  }
+  product.title = title;
+  product.price = price;
+  fileHelper(product.imagePath);
+  product.imagePath = image.path;
+  product.save();
+  res.status(200).redirect('/')
 };

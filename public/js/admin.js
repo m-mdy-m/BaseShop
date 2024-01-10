@@ -22,18 +22,16 @@ const deleteProduct = async (btn) => {
   cardItem.parentNode.removeChild(cardItem);
 };
 const editProduct = async (btn) => {
-  const form = btn.closest("form");
-  const csrf = form.querySelector("[name=_csrf]").value;
-  const url = "/edit-product";
-  const response = await fetch(url, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      "CSRF-Token": csrf,
-    },
-  });
-  await response.json()
-
-  console.log(response)
-
-};
+    const form = btn.closest("form");
+    const csrf = form.querySelector("[name=_csrf]").value;
+    const url = "/edit-product";
+    const formData = new FormData(form);
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "CSRF-Token": csrf,
+      },
+      body: formData,
+    });
+    await response.json();
+  };
