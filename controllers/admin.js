@@ -6,7 +6,7 @@ const NUMBER_PRODUCT = 3;
 exports.getAdmin = async (req, res, nxt) => {
   const page = +req.query.page || 1;
   const totalItem = await Product.countDocuments();
-  const products = await Product.find()
+  const products = await Product.find({userId : req.user._id})
     .skip((page - 1) * NUMBER_PRODUCT)
     .limit(NUMBER_PRODUCT);
   render(req, res, "admin/admin", "ADMIN", null, [], {

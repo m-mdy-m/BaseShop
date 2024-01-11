@@ -22,7 +22,7 @@ const User = new Schema({
         ref: "Product",
         required: true,
       },
-      proId: {
+      prodId: {
         type: Schema.Types.ObjectId,
         ref: "Product",
         required: true,
@@ -31,5 +31,26 @@ const User = new Schema({
     },
   ],
 });
-
+User.methods.addCart = async function (product) {
+  if (!this.cart) {
+    this.cart = [];
+  }
+  let CartUser = [...this.cart];
+  let newQty = 1;
+  const cartIndex = CartUser.findIndex((item) => {
+    return item.prodId.toString() === product._id.toString();
+  });
+  if (cartIndex >= 0) {
+    newQty = this.cart[cartIndex].qty + 1;
+    CartUser[cartIndex].qty = newQty;
+  } else {
+    CartUser.push({
+      nameProduct: product.title,
+      prodId: product._id,
+      qty: newQty,
+    });
+  }
+  this.cart = CartUser;
+  return await this.save();
+};
 module.exports = mongoose.model("User", User);

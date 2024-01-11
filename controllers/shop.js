@@ -3,20 +3,22 @@ const Product = require("../models/Product");
 const User = require("../models/User");
 const { validationResult } = require("express-validator");
 
-const NUMBER_PRODUCT = 3
+const NUMBER_PRODUCT = 3;
 exports.getShop = async (req, res, nxt) => {
-  const page = +req.query.page || 1
-  const totalItem = await Product.countDocuments()
-  const products = await Product.find().skip((page - 1) * NUMBER_PRODUCT).limit(NUMBER_PRODUCT)
-  console.log('=>', Math.ceil(totalItem / NUMBER_PRODUCT))
+  const page = +req.query.page || 1;
+  const totalItem = await Product.countDocuments();
+  const products = await Product.find()
+    .skip((page - 1) * NUMBER_PRODUCT)
+    .limit(NUMBER_PRODUCT);
+  console.log("=>", Math.ceil(totalItem / NUMBER_PRODUCT));
   render(req, res, "shop/index", "HOME", null, [], {
     products,
-    page : page,
-    prevPage : page - 1,
-    hasPrevPage : page > 1,
-    hasNxtPage :  page * NUMBER_PRODUCT < totalItem,
-    nxtPage : page + 1,
-    lastPage : Math.ceil(totalItem / NUMBER_PRODUCT)
+    page: page,
+    prevPage: page - 1,
+    hasPrevPage: page > 1,
+    hasNxtPage: page * NUMBER_PRODUCT < totalItem,
+    nxtPage: page + 1,
+    lastPage: Math.ceil(totalItem / NUMBER_PRODUCT),
   });
 };
 exports.getAddProduct = (req, res, nxt) => {
@@ -59,9 +61,11 @@ exports.postAddProduct = async (req, res, nxt) => {
   console.log("CREATE NEW PRODUCT ");
   res.redirect("/");
 };
-exports.postCart = async (req,res,nxt)=>{
-  const prodId = req.body.prodId
-  console.log(prodId)
-  const product = await Product.findOne({_id : prodId , userId : req.user._id})
-  console.log(product)
-}
+exports.postCart = async (req, res, nxt) => {
+  const prodId = req.body.prodId;
+  const user = req.user;
+  const product = await Product.findOne({ _id: prodId});
+  
+  await user.addCart(product);
+  res.redirect("/cart");
+};
