@@ -59,3 +59,9 @@ exports.postAddProduct = async (req, res, nxt) => {
   console.log("CREATE NEW PRODUCT ");
   res.redirect("/");
 };
+exports.postCart = async (req,res,nxt)=>{
+  const prodId = req.body.prodId
+  console.log(prodId)
+  const product = await Product.findOne({_id : prodId , userId : req.user._id})
+  console.log(product)
+}
