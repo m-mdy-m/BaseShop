@@ -8,4 +8,5 @@ router.post('/add-product', isAuth, shopControl.postAddProduct)
 router.post('/cart',isAuth,shopControl.postCart)
 
 router.get('/cart',isAuth,shopControl.getCart)
+router.delete('/cart/:prodId',isAuth,shopControl.deleteCart )
 module.exports = router

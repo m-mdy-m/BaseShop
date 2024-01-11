@@ -31,6 +31,13 @@ const User = new Schema({
     },
   ],
 });
+User.methods.removeCart = async function(id){
+  const update = this.cart.filter((item) => {
+    return item.prodId.toString() !== id.toString();
+  });
+  this.cart = update;
+  return this.save();
+};
 User.methods.addCart = async function (product) {
   if (!this.cart) {
     this.cart = [];

@@ -77,3 +77,9 @@ exports.getCart = async (req, res, nxt) => {
     products,
   });
 };
+exports.deleteCart = async (req, res, nxt) => {
+  const prodId = req.params.prodId;
+  const product = await Product.findOne({ _id: prodId });
+  await req.user.removeCart(product._id)
+  return res.status(200).json({message : "DELETE CART"})
+};

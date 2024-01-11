@@ -17,9 +17,9 @@
             <% if(isAuth){ %>
             <div class="card__cart">
               
-                <button class="btn" type="submit" onclick="deleteCartItem" >Delete</button>
+                <button class="btn" type="submit" onclick="deleteCartItem(this)" >Delete</button>
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                <input type="hidden" name="prodId" value="<%= product._id %>">
+                <input type="hidden" name="prodId" value="<%= product.prodId._id %>">
             </div>
             <% } %>
         </div>
