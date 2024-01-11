@@ -25,6 +25,10 @@
         </div>
         
         <% }) %>
+        <form action="/checkOut" method="post" >
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+        </form>
       </div>
     <% }else{ %>
       <h1>NO FOUND PRODUCT</h1>
