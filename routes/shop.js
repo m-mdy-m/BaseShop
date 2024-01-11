@@ -6,4 +6,6 @@ router.get('/add-product', isAuth , shopControl.getAddProduct)
 router.post('/add-product', isAuth, shopControl.postAddProduct)
 
 router.post('/cart',isAuth,shopControl.postCart)
+
+router.get('/cart',isAuth,shopControl.getCart)
 module.exports = router

@@ -64,8 +64,16 @@ exports.postAddProduct = async (req, res, nxt) => {
 exports.postCart = async (req, res, nxt) => {
   const prodId = req.body.prodId;
   const user = req.user;
-  const product = await Product.findOne({ _id: prodId});
-  
+  const product = await Product.findOne({ _id: prodId });
+
   await user.addCart(product);
   res.redirect("/cart");
+};
+exports.getCart = async (req, res, nxt) => {
+  const user = await req.user.populate("cart.prodId");
+  const products = user.cart;
+  console.log("products =>", products);
+  render(req, res, "shop/cart", "CART", null, [], {
+    products,
+  });
 };
